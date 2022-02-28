@@ -3,7 +3,7 @@ package enzo.ereBienneBie.utilisateurs;
 
 public class Hote extends Personne {
 
-    private int delaiDeReponse;
+    private final int delaiDeReponse;
 
     public Hote(String prenom, String nom, int age, int delaiDeReponse) {
         super(prenom, nom, age);
@@ -17,5 +17,12 @@ public class Hote extends Personne {
         } else {
             System.out.println(this.prenom+" "+this.nom+" ("+this.age+" ans) qui s'engage à prépondre dans l'heure");
         }
+    }
+
+    @Override
+    public int compareTo(Personne o) {
+        if(o instanceof Hote && this.delaiDeReponse > ((Hote) o).delaiDeReponse)
+            return 1;
+        return 0;
     }
 }

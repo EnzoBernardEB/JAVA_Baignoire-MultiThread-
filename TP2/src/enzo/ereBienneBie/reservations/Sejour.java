@@ -5,7 +5,7 @@ import enzo.ereBienneBie.logements.Logement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class Sejour implements SejourInterface {
+public abstract class Sejour implements SejourInterface,Cloneable {
     protected Date dateArrivee;
     protected int nbNuits;
     protected Logement logement;
@@ -13,13 +13,20 @@ public abstract class Sejour implements SejourInterface {
     protected Date dateActuelle;
 
     public Sejour(Date dateArrivee, int nbNuits, Logement logement, int nbVoyageurs) {
-        this.dateArrivee = dateArrivee;
+        this.dateArrivee = new Date(dateArrivee.getDate(),dateArrivee.getMonth(),dateArrivee.getYear());
         this.nbNuits = nbNuits;
         this.logement = logement;
         this.nbVoyageurs = nbVoyageurs;
         this.dateActuelle = new Date();
     }
 
+    public Date getDateArrivee() {
+        return new Date(this.dateArrivee.getDate(),dateArrivee.getMonth(),dateArrivee.getYear());
+    }
+
+    public Date getDateActuelle() {
+        return new Date(this.dateArrivee.getDate(),dateArrivee.getMonth(),dateArrivee.getYear());
+    }
 
     @Override
     public boolean verificationDateArrivee() {
@@ -45,6 +52,8 @@ public abstract class Sejour implements SejourInterface {
         return false;
     }
 
+    public abstract void setLogement(Logement logement);
+
     @Override
     public void afficher() {
         //SimpleDateFormat date = new SimpleDateFormat("dd/MM/yy");
@@ -54,7 +63,8 @@ public abstract class Sejour implements SejourInterface {
 
     }
 
-    public abstract void miseAjourDuTarif(int nouveauTarif);
+    public abstract void miseAjourDuTarif();
 
-
+    @Override
+    protected abstract Sejour clone();
 }

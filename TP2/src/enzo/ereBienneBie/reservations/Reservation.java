@@ -13,7 +13,7 @@ public class Reservation {
 
     public Reservation(Voyageur voyageur, Sejour sejour) {
         this.voyageur = voyageur;
-        this.sejour = sejour;
+        this.sejour = sejour.clone();
 
     }
 

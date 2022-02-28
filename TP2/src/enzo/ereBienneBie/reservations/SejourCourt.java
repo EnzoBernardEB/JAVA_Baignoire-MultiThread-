@@ -4,11 +4,17 @@ import enzo.ereBienneBie.logements.Logement;
 
 import java.util.Date;
 
-public class SejourCourt extends Sejour {
+public class SejourCourt extends Sejour{
     private int tarif;
 
     public SejourCourt(Date dateArrivee, int nbNuits, Logement logement, int nbVoyageurs) {
         super(dateArrivee, nbNuits, logement, nbVoyageurs);
+    }
+
+    @Override
+    public void setLogement(Logement logement) {
+        this.logement=logement;
+        this.miseAjourDuTarif();
     }
 
     @Override
@@ -18,7 +24,12 @@ public class SejourCourt extends Sejour {
     }
 
     @Override
-    public void miseAjourDuTarif(int nouveauTarif) {
-        this.logement.setTarifJournalier(nouveauTarif);
+    public void miseAjourDuTarif() {
+        this.tarif = logement.getTarifJournalier()*this.nbNuits;
+    }
+
+    @Override
+    protected SejourCourt clone() {
+        return new SejourCourt(dateArrivee,nbNuits,logement,nbVoyageurs);
     }
 }

@@ -2,14 +2,16 @@ package enzo.ereBienneBie.logements;
 
 import enzo.ereBienneBie.utilisateurs.Hote;
 
-public abstract class Logement {
-    protected Hote hote;
-    protected int tarifJournalier;
-    protected String adresse;
-    protected int superficie;
-    protected int nbVoyageursMax;
+public abstract class Logement implements Comparable<Logement>{
+    protected final String nom;
+    protected final Hote hote;
+    protected final int tarifJournalier;
+    protected final String adresse;
+    protected final int superficie;
+    protected final int nbVoyageursMax;
 
-    public Logement(Hote hote, int tarifJournalier, String adresse, int superficie, int nbVoyageursMax) {
+    public Logement(String nom,Hote hote, int tarifJournalier, String adresse, int superficie, int nbVoyageursMax) {
+        this.nom = nom;
         this.hote = hote;
         this.tarifJournalier = tarifJournalier;
         this.adresse = adresse;
@@ -17,30 +19,28 @@ public abstract class Logement {
         this.nbVoyageursMax = nbVoyageursMax;
     }
 
-    public Hote getHote() {
-        return hote;
+    public String getNom() {
+        return nom;
     }
+
 
     public int getTarifJournalier() {
         return tarifJournalier;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public int getSuperficie() {
-        return superficie;
     }
 
     public int getNbVoyageursMax() {
         return nbVoyageursMax;
     }
 
-    public void setTarifJournalier(int tarifJournalier) {
-        this.tarifJournalier = tarifJournalier;
-    }
 
     public abstract int getSuperficieTotal();
     public abstract void afficher();
+
+    @Override
+    public int compareTo(Logement o) {
+        if(this.tarifJournalier>o.tarifJournalier) {
+            return 1;
+        }
+        return 0;
+    }
 }
